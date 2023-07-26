@@ -8,16 +8,17 @@ import clr
 clr.AddReference('C:\Program Files (x86)\ACS Motion Control\CommonFiles\ACS.SPiiPlusNET')
 from ACS.SPiiPlusNET import *
 
-root_path=(os.path.split(os.path.split(os.path.split(sys.path[0])[0])[0])[0]) # Obtaining root path of Project in folder HAL_MotorController
-# sys.path.insert(0, root_path + '\config') # Adding the config folder to python path so it can be imported any module
-
-inifile_path = root_path + '\config\pi_motor_config.ini'
+PROJECT_PATH=(os.path.split(os.path.split(os.path.split(sys.path[0])[0])[0])[0]) # Obtaining root path of Project in folder HAL_MotorController
+inifile_path = PROJECT_PATH + '\config\pi_motor_config.ini'
 config = configparser.ConfigParser()
 config.read(inifile_path)
 Ip_Address = config['General']['IP Address']
 
+sys.path.insert(0, PROJECT_PATH) # Adding the config folder to python path so it can be imported any module
+from source.controller_hal.hal_controller import *
 
-class PiControllerApi():
+
+class PiControllerApi(Controller):
     def __init__(self):
         self.Command = Api()
         self.port = int(EthernetCommOption.ACSC_SOCKET_STREAM_PORT)
@@ -64,8 +65,8 @@ class PiControllerApi():
         self.Command.CloseComm()
 
 
-if __name__ == '__main__':
-    api = PiControllerApi()
-    api.Connect()
-    api.Enable()
-    api.Disconnect()
+# if __name__ == '__main__':
+#     api = PiControllerApi()
+#     api.Connect()
+#     api.Enable()
+#     api.Disconnect()
