@@ -38,7 +38,7 @@ class Manual_Control():
 
     @Error_Handler
     def Connect(self):
-        self.Ch.OpenCommEthernetTCP("192.168.224.1", self.port)
+        self.Ch.OpenCommEthernetTCP("172.22.112.1", self.port)
         self.Ch.Enable(self.Axis)
         self.Ch.WaitMotorEnabled(self.Axis, 1, 5000)
         self.Ch.Commut(self.Axis)

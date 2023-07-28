@@ -1,3 +1,5 @@
+# You can convert the .ui file into .py file with the next command pyuic5 <filename.ui> -o <filename.py>
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'main_window.ui'
