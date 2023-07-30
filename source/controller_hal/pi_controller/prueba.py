@@ -1,10 +1,25 @@
-import os
-import sys
+class MyClass:
+    @staticmethod
+    def my_decorator(cls):
+        def wrapper(*args, **kwargs):
+            print("Decorator action before calling the method.")
+            result = cls(*args, **kwargs)
+            print("Decorator action after calling the method.")
+            return result
+        return wrapper
 
-root_path=(os.path.split(os.path.split(os.path.split(sys.path[0])[0])[0])[0]) # Obtaining root path of Project
-sys.path.insert(0, root_path + '\config')
-print(root_path + '\config')
+    @my_decorator   # Using the my_decorator method as a decorator for the method below
+    def some_method(self, x, y):
+        return x + y
 
-from test import Asta
+# Creating an instance of the class
+obj = MyClass()
 
-Asta()
+# Calling the method that uses the decorator
+result = obj.some_method(5, 3)
+
+# Output:
+# Decorator action before calling the method.
+# Decorator action after calling the method.
+
+print("Result:", result)  # Output: Result: 8

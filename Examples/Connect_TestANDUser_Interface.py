@@ -72,7 +72,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.Motors = Manual_Control()
         self.ButtonMoveRelativeNegative.released.connect(self.Motors.Move_Relative)
         self.ButtonStop.released.connect(self.Motors.Stop_Motion)
-        thread_Get_Position = Thread(target=self.Motors.Get_Position, args=(self.DisplayPosition.display,))
+        thread_Get_Position = Thread(target=self.Motors.Get_Position, args=(self.Indicator_Position.display,))
         thread_Get_Position.start()
 
 
