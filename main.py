@@ -3,7 +3,6 @@ from source.user_interfaces.main_window import *
 import sys
 from threading import Thread, Event
 import time
-Example() # This is just a class called by a module from other module in different packages at runtime
 
 
 def function_get_position(self):
