@@ -1,6 +1,7 @@
 """
 This is the main class with all the methods for sending the correct commands to the PI Controller.
 """
+
 import clr
 import configparser
 import logging
@@ -15,147 +16,138 @@ logging.basicConfig(
 )
 
 
-def read_ini_file(PROJECT_PATH):
-    inifile_path = PROJECT_PATH + '\config\pi_motor_config.ini'
+def error_handler(method):
+    def wrapper(*args, **kwargs):
+        try:
+            method(*args, **kwargs)
+        except:
+            logging.error(f"Error in {method.__qualname__}")
+        else:
+            logging.info(f"{method.__qualname__} completed successfully.")
+    return wrapper
+
+
+def read_ini_file(path):
+    inifile_path = path + '\config\pi_motor_config.ini'
     config = configparser.ConfigParser()
     config.read(inifile_path)
     return config['General']['IP Address']
 
 
-def Error_Handler(Method):
-    def Wrapper(*args, **kwargs):
-        try:
-            Method(*args, **kwargs)
-        except ACSException:
-            logging.error(f"Error in {Method.__qualname__}")
-        else:
-            logging.info(f"{Method.__qualname__} completed successfully.")
-    return Wrapper
-
-
-def Check_Connection(Method):
-    Position = 0
-    def Wrapper(self):
-        if self.GetConnected():
-            return Method(self)
-    return Wrapper
-
-
 class PropertyDistance():
     def __init__(self):
-        self._Distance = 0
+        self._distance = 0
 
 
-    def GetDistance(self):
-        return self._Distance
+    def get_distance(self):
+        return self._distance
 
 
-    def SetDistance(self, value):
-        self._Distance = value
+    def set_distance(self, value):
+        self._distance = value
 
 
 #Unable to use @property with PyQT5, so I need it to use the normal getter and setter.
 class PropertyPosition():
     def __init__(self):
-        self._Position = 0
+        self._position = 0
 
 
-    def GetPosition(self):
-        return self._Position
+    def get_position(self):
+        return self._position
 
 
-    def SetPosition(self, value):
-        self._Position = value
+    def set_position(self, value):
+        self._position = value
 
 
 class PiControllerApi():
     def __init__(self):
-        self.Property_Distance = PropertyDistance()
-        self.Property_Position = PropertyPosition()
-        # self.Property_Connected = PropertyConnected()
-        self.Command = Api()
+        self.property_distance = PropertyDistance()
+        self.property_position = PropertyPosition()
+        self.command = Api()
         self.port = int(EthernetCommOption.ACSC_SOCKET_STREAM_PORT)
-        self._Connected = False
-        self.Axis = Axis.ACSC_AXIS_0
-        self.Axes = [
-            Axis.ACSC_AXIS_0, Axis.ACSC_AXIS_1
-            #Axis.ACSC_NONE -> No Axis selected
-            #Axis.ACSC_PAR_ALL -> All axes selected
-        ]
+        self.__connected = False
+        self.axis = Axis.ACSC_AXIS_0
 
 
-    def GetConnected(self):
-        return self._Connected
+    def get_connected(self):
+        return self.__connected
 
 
-    @Error_Handler
-    def Connect(self):
-        if self._Connected:
-            pass
+    def __CheckConnection(method):
+        def wrapper(self):
+            if self.get_connected():
+                return method(self)
+        return wrapper
+
+
+    @error_handler
+    def connect(self):
+        if self.get_connected():
+            logging.info("Command not sent because system is already Connected.")
         else:
-            self.Command.OpenCommEthernetTCP(Ip_Address, self.port)
-            self.Enable()
-            self.Commut()
-            self._Connected = True
+            self.command.OpenCommEthernetTCP(ip_address, self.port)
+            self.__connected = True
+            self.enable()
+            self.commut()
 
 
-    @Error_Handler
-    @Check_Connection
-    def Enable(self):
-        self.Command.Enable(self.Axis)
+    @__CheckConnection
+    def enable(self):
+        self.command.Enable(self.axis)
 
 
-    @Error_Handler
-    @Check_Connection
-    def Disable(self):
-        self.Command.Disable(self.Axis)
+    @error_handler
+    @__CheckConnection
+    def disable(self):
+        self.command.DisableAll()
 
 
-    @Error_Handler
-    def Wait_for_Enable(self):
-        self.Command.WaitMotorEnabled(self.Axis, 1, 5000)
+    @error_handler
+    def wait_enable(self):
+        self.command.WaitMotorEnabled(self.axis, 1, 5000)
 
 
-    @Error_Handler
-    @Check_Connection
-    def Commut(self):
-        self.Command.Commut(self.Axis)
+    @__CheckConnection
+    def commut(self):
+        self.command.Commut(self.axis)
 
 
-    @Error_Handler
-    @Check_Connection
-    def Move_Relative_Positive(self):
-        self.Command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.Axis, self.Property_Distance.GetDistance())
+    @error_handler
+    @__CheckConnection
+    def move_relative_positive(self):
+        self.command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.axis, self.property_distance.get_distance())
 
 
-
-    @Error_Handler
-    @Check_Connection
-    def Move_Relative_Negative(self):
-        self.Command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.Axis, -abs(self.Property_Distance.GetDistance()))
-
-
-    @Error_Handler
-    @Check_Connection
-    def Move_Absolute(self):
-        self.Command.ToPoint(MotionFlags.ACSC_NONE, self.Axis, self.Property_Position.GetPosition())
+    @error_handler
+    @__CheckConnection
+    def move_relative_negative(self):
+        self.command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.axis, -abs(self.property_distance.get_distance()))
 
 
-    @Error_Handler
-    @Check_Connection
-    def Stop_Motion(self):
-        self.Command.Halt(self.Axis)
-
-    @Check_Connection
-    def Get_Position(self):
-        return self.Command.GetFPosition(self.Axis)
+    @error_handler
+    @__CheckConnection
+    def move_absolute(self):
+        self.command.ToPoint(MotionFlags.ACSC_NONE, self.axis, self.property_position.get_position())
 
 
-    @Error_Handler
-    def Disconnect(self):
-        self.Command.CloseComm()
-        self._Connected = False
+    @error_handler
+    @__CheckConnection
+    def stop_motion(self):
+        self.command.Halt(self.axis)
 
+
+    @__CheckConnection
+    def get_position(self):
+        return self.command.GetFPosition(self.axis)
+
+
+    @error_handler
+    def disconnect(self):
+        self.disable()
+        self.command.CloseComm()
+        self.__connected = False
 
 
 if __name__ == '__main__':
@@ -164,14 +156,13 @@ if __name__ == '__main__':
     sys.path.insert(0, PROJECT_PATH) # Adding the config folder to python path so it can be imported any module
     from source.controller_hal.hal_controller import *
 
-    Ip_Address = read_ini_file()
+    ip_address = read_ini_file(PROJECT_PATH)
 
     api = PiControllerApi()
-    api.Connect()
-    api.Enable()
-    api.Disconnect()
-
+    api.connect()
+    api.enable()
+    api.disconnect()
 else:
     from ...modtest import *
     PROJECT_PATH = sys.path[0]
-    Ip_Address = read_ini_file(PROJECT_PATH)
+    ip_address = read_ini_file(PROJECT_PATH)

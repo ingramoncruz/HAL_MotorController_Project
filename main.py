@@ -6,9 +6,9 @@ import time
 Example() # This is just a class called by a module from other module in different packages at runtime
 
 
-def Function_Get_Position(self):
-    while not self.event_Stop.is_set():
-        self.Indicator_Position.display(self.Motors.Get_Position())
+def function_get_position(self):
+    while not self.event_stop.is_set():
+        self.Indicator_Position.display(self.motors.get_position())
         time.sleep(0.3)
     return
 
@@ -17,25 +17,25 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
-        self.event_Stop = Event()
-        self.Motors = PiControllerApi()
-        self.Input_Position.valueChanged.connect(self.Motors.Property_Position.SetPosition)
-        self.Input_Distance.valueChanged.connect(self.Motors.Property_Distance.SetDistance)
-        self.Button_MoveRelativePositive.released.connect(self.Motors.Move_Relative_Positive)
-        self.Button_MoveRelativeNegative.released.connect(self.Motors.Move_Relative_Negative)
-        self.Button_MoveAbsolute.released.connect(self.Motors.Move_Absolute)
-        self.Button_Stop.released.connect(self.Motors.Stop_Motion)
-        self.Button_Connect.released.connect(self.Motors.Connect)
-        self.Button_Disconnect.released.connect(self.Motors.Disconnect)
-        self.thread_Get_Position = Thread(
-            target=Function_Get_Position,
-            args=(self,)
-            )
-        self.thread_Get_Position.start()
+        self.event_stop = Event()
+        self.motors = PiControllerApi()
+        self.Input_Position.valueChanged.connect(self.motors.property_position.set_position)
+        self.Input_Distance.valueChanged.connect(self.motors.property_distance.set_distance)
+        self.Button_MoveRelativePositive.released.connect(self.motors.move_relative_positive)
+        self.Button_MoveRelativeNegative.released.connect(self.motors.move_relative_negative)
+        self.Button_MoveAbsolute.released.connect(self.motors.move_absolute)
+        self.Button_Stop.released.connect(self.motors.stop_motion)
+        self.Button_Connect.released.connect(self.motors.connect)
+        self.Button_Disconnect.released.connect(self.motors.disconnect)
+        self.thread_get_position = Thread(
+            target=function_get_position,
+            args=(self,))
+        self.thread_get_position.start()
 
 
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()
 window.show()
 app.exec()
-window.event_Stop.set()
+window.event_stop.set()
+window.motors.disconnect()

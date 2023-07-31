@@ -1,4 +1,5 @@
 # You can convert the .ui file into .py file with the next command pyuic5 <filename.ui> -o <filename.py>
+#Changed everything to mixedCase
 
 # -*- coding: utf-8 -*-
 
