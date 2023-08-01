@@ -24,8 +24,6 @@ def error_handler(method):
             method(*args, **kwargs)
         except:
             logging.error(f"Error in {method.__qualname__}")
-        else:
-            logging.info(f"{method.__qualname__} completed successfully.")
     return wrapper
 
 
@@ -80,6 +78,7 @@ class PiControllerApi():
         self.port = int(EthernetCommOption.ACSC_SOCKET_STREAM_PORT)
         self.__connected = False
         self.axis = Axis.ACSC_AXIS_0
+        self.distance = 0
 
     def get_connected(self):
         return self.__connected
@@ -89,65 +88,77 @@ class PiControllerApi():
         def wrapper(self):
             if self.get_connected():
                 return method(self)
+            else:
+                logging.info(f"Action in {method.__qualname__} not done, because you are not connected.")
         return wrapper
-
 
     @error_handler
     def connect(self):
-        if self.get_connected():
-            logging.info("Command not sent because system is already Connected.")
-        else:
-            self.command.OpenCommEthernetTCP(ip_address, self.port)
-            self.__connected = True
-            self.enable()
-            self.commut()
+        self.command.OpenCommEthernetTCP(ip_address, self.port)
+        self.__connected = True
+        logging.info(f"Controller connected with IP Address = {ip_address} and Port = {self.port}.")
 
+    @error_handler
     @__check_connection
     def enable(self):
         self.command.Enable(self.axis)
+        logging.info(f"Axis = {self.axis} enabled.")
 
     @error_handler
     @__check_connection
     def disable(self):
+        self.__connected = True
         self.command.DisableAll()
+        logging.info("All axis disabled")
 
     @error_handler
+    @__check_connection
     def wait_enable(self):
         self.command.WaitMotorEnabled(self.axis, 1, 5000)
+        logging.info(f"Axis = {self.axis} enabled.")
 
+    @error_handler
     @__check_connection
     def commut(self):
         self.command.Commut(self.axis)
+        logging.info(f"Axis = {self.axis} commuted.")
 
     @error_handler
     @__check_connection
     def move_relative_positive(self):
-        self.command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.axis, self.property_distance.get_distance())
+        self.distance = self.property_distance.get_distance()
+        self.command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.axis, self.distance)
+        logging.info(f"Positive relative move in Axis = {self.axis} for Distance = {self.distance}.")
 
     @error_handler
     @__check_connection
     def move_relative_negative(self):
-        self.command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.axis, -abs(self.property_distance.get_distance()))
+        self.distance = -abs(self.property_distance.get_distance())
+        self.command.ToPoint(MotionFlags.ACSC_AMF_RELATIVE, self.axis, self.distance)
+        logging.info(f"Negative relative move in Axis = {self.axis} for Distance = {self.distance}.")
 
     @error_handler
     @__check_connection
     def move_absolute(self):
-        self.command.ToPoint(MotionFlags.ACSC_NONE, self.axis, self.property_position.get_position())
+        position = self.property_position.get_position()
+        self.command.ToPoint(MotionFlags.ACSC_NONE, self.axis, position)
+        logging.info(f"Absolute move in Axis = {self.axis} to Position = {position}.")
 
     @error_handler
     @__check_connection
     def stop_motion(self):
         self.command.Halt(self.axis)
+        logging.info(f"Motion stopped in Axis = {self.axis}.")
 
-    @__check_connection
+    # Decorator cannot be applied here to get a proper returned value to the main.py file
     def get_position(self):
         return self.command.GetFPosition(self.axis)
 
     @error_handler
     def disconnect(self):
-        self.disable()
         self.__connected = False
         self.command.CloseComm()
+        logging.info("Controller disconnected.")
 
 
 
