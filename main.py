@@ -5,15 +5,17 @@ from threading import Thread, Event
 import time
 
 
-def function_get_position(*args):
+def function_get_position(self):
     """This function is activated by a Thread to continuously adquire the current position
     of the axis set. It is shutdown before closing the app.
     """
     # Unwrapping the tuple args
-    event, display_indicator, method = args
+    event = self.event_stop
     while not event.is_set():
-        display_indicator(method())
-        time.sleep(0.3)
+        self.Led_Connected.setChecked(self.motors.get_connected())
+        self.Indicator_Position.display(self.motors.get_position())
+        self.Led_Moving.setChecked(self.motors.get_moving())
+        time.sleep(0.2)
     return
 
 
@@ -38,7 +40,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.Button_Disconnect.released.connect(self.motors.disconnect)
         self.thread_get_position = Thread(
             target=function_get_position,
-            args=(self.event_stop, self.Indicator_Position.display, self.motors.get_position,))
+            args=(self,))
         self.thread_get_position.start()
 
 

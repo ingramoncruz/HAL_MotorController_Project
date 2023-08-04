@@ -56,3 +56,13 @@ class PiHalClass(MotorController):
             return self.pi.get_position()
         else:
             return None
+
+    def get_connected(self):
+        return self.pi.get_connected()
+
+    def get_moving(self):
+        if self.pi.get_connected():
+            motor_state = self.pi.get_motor_state()
+            return hex(motor_state) == hex(1073741857)
+        else:
+            return False

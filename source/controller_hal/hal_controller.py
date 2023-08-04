@@ -49,3 +49,11 @@ class MotorController(metaclass=ABCMeta):
     @abstractmethod
     def get_position(self):
         pass
+
+    @abstractmethod
+    def get_connected(self):
+        pass
+
+    @abstractmethod
+    def get_moving(self):
+        pass

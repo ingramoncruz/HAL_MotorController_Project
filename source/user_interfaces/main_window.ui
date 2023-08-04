@@ -50,7 +50,7 @@
    <widget class="QLabel" name="Title_Moving">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>240</x>
       <y>150</y>
       <width>64</width>
       <height>16</height>
@@ -125,26 +125,6 @@
     </property>
     <property name="text">
      <string>Connect</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Title_Connection">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>80</y>
-      <width>111</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>8</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Connection</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="Input_Distance">
@@ -341,6 +321,83 @@
     </property>
     <property name="text">
      <string>Move Relative -</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="Led_Connected">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>90</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton::indicator {
+width: 130px;
+height: 30px
+}
+
+QRadioButton::indicator::checked {
+background-color: #00ff00;
+}
+
+QRadioButton::indicator::unchecked {
+background-color: #486c58;
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Title_Connection">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>70</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Connection</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="Led_Moving">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>170</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton::indicator {
+width: 130px;
+height: 30px
+}
+
+QRadioButton::indicator::checked {
+background-color: #00ff00;
+}
+
+QRadioButton::indicator::unchecked {
+background-color: #486c58;
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

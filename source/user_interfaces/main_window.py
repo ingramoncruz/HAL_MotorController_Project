@@ -1,6 +1,3 @@
-# You can convert the .ui file into .py file with the next command pyuic5 <filename.ui> -o <filename.py>
-#Changed everything to mixedCase
-
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'main_window.ui'
@@ -32,7 +29,7 @@ class Ui_MainWindow(object):
         self.Title_UI.setFont(font)
         self.Title_UI.setObjectName("Title_UI")
         self.Title_Moving = QtWidgets.QLabel(self.centralwidget)
-        self.Title_Moving.setGeometry(QtCore.QRect(250, 150, 64, 16))
+        self.Title_Moving.setGeometry(QtCore.QRect(240, 150, 64, 16))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -56,14 +53,6 @@ class Ui_MainWindow(object):
         self.Button_Connect = QtWidgets.QPushButton(self.centralwidget)
         self.Button_Connect.setGeometry(QtCore.QRect(250, 100, 81, 24))
         self.Button_Connect.setObjectName("Button_Connect")
-        self.Title_Connection = QtWidgets.QLabel(self.centralwidget)
-        self.Title_Connection.setGeometry(QtCore.QRect(470, 80, 111, 16))
-        font = QtGui.QFont()
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.Title_Connection.setFont(font)
-        self.Title_Connection.setObjectName("Title_Connection")
         self.Input_Distance = QtWidgets.QDoubleSpinBox(self.centralwidget)
         self.Input_Distance.setGeometry(QtCore.QRect(310, 370, 271, 24))
         self.Input_Distance.setObjectName("Input_Distance")
@@ -129,6 +118,49 @@ class Ui_MainWindow(object):
         self.Button_MoveRelativeNegative = QtWidgets.QPushButton(self.centralwidget)
         self.Button_MoveRelativeNegative.setGeometry(QtCore.QRect(311, 417, 131, 28))
         self.Button_MoveRelativeNegative.setObjectName("Button_MoveRelativeNegative")
+        self.Led_Connected = QtWidgets.QRadioButton(self.centralwidget)
+        self.Led_Connected.setGeometry(QtCore.QRect(450, 90, 131, 31))
+        self.Led_Connected.setStyleSheet("QRadioButton::indicator {\n"
+"width: 130px;\n"
+"height: 30px\n"
+"}\n"
+"\n"
+"QRadioButton::indicator::checked {\n"
+"background-color: #00ff00;\n"
+"}\n"
+"\n"
+"QRadioButton::indicator::unchecked {\n"
+"background-color: #486c58;\n"
+"}\n"
+"\n"
+"")
+        self.Led_Connected.setText("")
+        self.Led_Connected.setObjectName("Led_Connected")
+        self.Title_Connection = QtWidgets.QLabel(self.centralwidget)
+        self.Title_Connection.setGeometry(QtCore.QRect(450, 70, 81, 16))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.Title_Connection.setFont(font)
+        self.Title_Connection.setObjectName("Title_Connection")
+        self.Led_Moving = QtWidgets.QRadioButton(self.centralwidget)
+        self.Led_Moving.setGeometry(QtCore.QRect(240, 170, 131, 31))
+        self.Led_Moving.setStyleSheet("QRadioButton::indicator {\n"
+"width: 130px;\n"
+"height: 30px\n"
+"}\n"
+"\n"
+"QRadioButton::indicator::checked {\n"
+"background-color: #00ff00;\n"
+"}\n"
+"\n"
+"QRadioButton::indicator::unchecked {\n"
+"background-color: #486c58;\n"
+"}\n"
+"\n"
+"")
+        self.Led_Moving.setText("")
+        self.Led_Moving.setObjectName("Led_Moving")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 658, 26))
@@ -150,7 +182,6 @@ class Ui_MainWindow(object):
         self.Title_Controller.setText(_translate("MainWindow", "Controller"))
         self.Button_Disconnect.setText(_translate("MainWindow", "Disconnect"))
         self.Button_Connect.setText(_translate("MainWindow", "Connect"))
-        self.Title_Connection.setText(_translate("MainWindow", "Connection"))
         self.Title_Distance.setText(_translate("MainWindow", "Distance"))
         self.Button_MoveAbsolute.setText(_translate("MainWindow", "Move Absolute"))
         self.Title_Position.setText(_translate("MainWindow", "Position"))
@@ -159,3 +190,4 @@ class Ui_MainWindow(object):
         self.Title_IndicatorPosition.setText(_translate("MainWindow", "Position"))
         self.Button_MoveRelativePositive.setText(_translate("MainWindow", "Move Relative +"))
         self.Button_MoveRelativeNegative.setText(_translate("MainWindow", "Move Relative -"))
+        self.Title_Connection.setText(_translate("MainWindow", "Connection"))

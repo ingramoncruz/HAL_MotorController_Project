@@ -78,6 +78,7 @@ class PiControllerApi():
         self.port = int(EthernetCommOption.ACSC_SOCKET_STREAM_PORT)
         self.__connected = False
         self.axis = Axis.ACSC_AXIS_0
+        self.MOVING = MotorStates.ACSC_MST_MOVE
         self.distance = 0
 
     def get_connected(self):
@@ -107,7 +108,6 @@ class PiControllerApi():
     @error_handler
     @__check_connection
     def disable(self):
-        self.__connected = True
         self.command.DisableAll()
         logging.info("All axis disabled")
 
@@ -159,6 +159,12 @@ class PiControllerApi():
         self.__connected = False
         self.command.CloseComm()
         logging.info("Controller disconnected.")
+
+    # Decorator cannot be applied here to get a proper returned value to the main.py file
+    def get_motor_state(self):
+        motor_state = self.command.GetMotorState(self.axis)
+        return motor_state
+
 
 
 
