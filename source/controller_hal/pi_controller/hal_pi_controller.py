@@ -62,7 +62,10 @@ class PiHalClass(MotorController):
 
     def get_moving(self):
         if self.pi.get_connected():
-            motor_state = self.pi.get_motor_state()
-            return hex(motor_state) == hex(1073741857)
+            # Getting binary number to check the moving state of the motor.
+            # [-6] is the position of the moving bit.
+            motor_state = str(bin(self.pi.get_motor_state()))[-6]
+            moving = motor_state == '1'
+            return moving
         else:
             return False

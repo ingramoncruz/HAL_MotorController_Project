@@ -166,8 +166,6 @@ class PiControllerApi():
         return motor_state
 
 
-
-
 # In case of running this specific .py file, we obtain the imports in a different way.
 if __name__ == '__main__':
     import os
