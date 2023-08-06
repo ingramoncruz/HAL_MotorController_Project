@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="Button_Stop">
+   <widget class="QPushButton" name="buttonStop">
     <property name="geometry">
      <rect>
       <x>35</x>
@@ -27,7 +27,7 @@
      <string>STOP</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_UI">
+   <widget class="QLabel" name="titleUI">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -47,7 +47,7 @@
      <string>MOTION CONTROLLER</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_Moving">
+   <widget class="QLabel" name="titleMoving">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -66,7 +66,7 @@
      <string>Moving</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_Controller">
+   <widget class="QLabel" name="titleController">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -85,7 +85,7 @@
      <string>Controller</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="Select_Controller">
+   <widget class="QComboBox" name="selectController">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -101,7 +101,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_Disconnect">
+   <widget class="QPushButton" name="buttonDisconnect">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -114,7 +114,7 @@
      <string>Disconnect</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_Connect">
+   <widget class="QPushButton" name="buttonConnect">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -127,7 +127,7 @@
      <string>Connect</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="Input_Distance">
+   <widget class="QDoubleSpinBox" name="inputDistance">
     <property name="geometry">
      <rect>
       <x>279</x>
@@ -137,7 +137,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_Distance">
+   <widget class="QLabel" name="titleDistance">
     <property name="geometry">
      <rect>
       <x>279</x>
@@ -156,7 +156,7 @@
      <string>Distance</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_MoveAbsolute">
+   <widget class="QPushButton" name="buttonMoveAbsolute">
     <property name="geometry">
      <rect>
       <x>43</x>
@@ -169,7 +169,7 @@
      <string>Move Absolute</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="Input_Position">
+   <widget class="QDoubleSpinBox" name="inputPosition">
     <property name="geometry">
      <rect>
       <x>43</x>
@@ -179,7 +179,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_Position">
+   <widget class="QLabel" name="titlePosition">
     <property name="geometry">
      <rect>
       <x>43</x>
@@ -198,7 +198,7 @@
      <string>Position</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="Select_Motor">
+   <widget class="QComboBox" name="selectMotor">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -214,7 +214,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_SelectMotor">
+   <widget class="QLabel" name="titleSelectMotor">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -233,7 +233,7 @@
      <string>Select Motor</string>
     </property>
    </widget>
-   <widget class="QLCDNumber" name="Indicator_Position">
+   <widget class="QLCDNumber" name="indicatorPosition">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -249,7 +249,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_IndicatorPosition">
+   <widget class="QLabel" name="titleIndicatorPosition">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -268,7 +268,7 @@
      <string>Position</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_MoveRelativePositive">
+   <widget class="QPushButton" name="buttonMoveRelativePositive">
     <property name="geometry">
      <rect>
       <x>416</x>
@@ -281,7 +281,7 @@
      <string>Move Relative +</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Button_MoveRelativeNegative">
+   <widget class="QPushButton" name="buttonMoveRelativeNegative">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -294,7 +294,7 @@
      <string>Move Relative -</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Title_Connection">
+   <widget class="QLabel" name="titleConnection">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -313,7 +313,7 @@
      <string>Connection</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="Led_Moving">
+   <widget class="QRadioButton" name="ledMoving">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -353,7 +353,7 @@ background-color: #486c58;
     <property name="title">
      <string/>
     </property>
-    <widget class="QRadioButton" name="Led_Connected">
+    <widget class="QRadioButton" name="ledConnected">
      <property name="geometry">
       <rect>
        <x>10</x>
