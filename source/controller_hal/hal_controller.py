@@ -1,5 +1,4 @@
-"""
-This is the main Abstraction Class for the controllers using Formal Abstraction to be able to
+""" This is the main Abstraction Class for the controllers using Formal Abstraction to be able to
 control different motors by using this class.
 """
 from abc import abstractmethod
@@ -48,7 +47,7 @@ class MotorController(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get_connected(self):
+    def get_connection(self):
         pass
 
     @abstractmethod

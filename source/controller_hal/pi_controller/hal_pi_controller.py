@@ -1,13 +1,12 @@
-"""
-This is the HAL Class for the PI Controller. The methods defined by the hal_controller.py
+""" This is the HAL Class for the PI Controller. The methods defined by the hal_controller.py
 are going to be implemented here for the correct control of the PI Controller.
 """
-import configparser
 import logging
 import sys
 # Relative import modules
 from ..hal_controller import MotorController
 from .pi_controller_api import *
+from ..utils.functions import read_motor_names
 
 
 logging.basicConfig(
@@ -15,21 +14,14 @@ logging.basicConfig(
     format = '%(threadName)s-%(levelname)s-%(message)s')
 
 
-def read_ini_file(path):
-    """Function to read all the parameters at the Config.ini file"""
-    inifile_path = path + '\config\pi_motor_config.ini'
-    config = configparser.ConfigParser()
-    config.read(inifile_path)
-    return config['Motors Name']['Motor 1'], config['Motors Name']['Motor 2']
-
-
 class PiHalClass(MotorController):
-    def __init__(self):
-        self.pi = PiControllerApi()
-        PROJECT_PATH = sys.path[0]  # Getting the project path
-        self.motor_list = read_ini_file(PROJECT_PATH)
+    def __init__(self, distance, position):
+        self.pi = PiControllerApi(distance, position)
+        project_path = sys.path[0]  # Getting the project path
+        INI_PATH = '\config\pi_motor_config.ini'
+        self.motor_list = read_motor_names(project_path, INI_PATH)
         self.motor1, self.motor2 = self.motor_list
-        self.motor = self.motor1  #Setting up a default value.
+        self.motor = self.motor1  #Setting up a default motor value.
 
     def motor_select(self, motor_selected):
         if motor_selected == 'Motor 2':
@@ -38,14 +30,14 @@ class PiHalClass(MotorController):
             self.motor = self.motor1
 
     def connect(self):
-        if self.pi.get_connected():
+        if self.pi.connection:
             logging.info(f"{self.connect.__qualname__} not done. The controller is connected already.")
         else:
             self.pi.connect()
             for motor in self.motor_list:
                 # All motors need to be enabled and commuted to be used.
                 self.pi.enable(motor)
-                self.pi.commut(self.motor)
+                self.pi.commut(motor)
 
     def disconnect(self):
         self.pi.disable() #Disabling all motors.
@@ -63,27 +55,26 @@ class PiHalClass(MotorController):
     def stop_motion(self):
         self.pi.stop_motion(self.motor)
 
-    # In order to set the position at main, the instance function has to be returned
-    def set_position(self):
-        return self.pi.property_position.set_position
+    def set_position(self, value):
+        self.pi.position = value
 
-    # In order to set the distance at main, the instance function has to be returned
-    def set_distance(self):
-        return self.pi.property_distance.set_distance
+    def set_distance(self, value):
+        self.pi.distance = value
 
     # The validation if the controller is connected is done here, without decorators.
-    # It is done in this way to avoid returning back confusing values to PyQt5 indicator due to Decorators.
+    # It is done in this way to avoid returning back wrong values to the PyQt5 indicators due
+    # to the decorators.
     def get_position(self):
-        if self.pi.get_connected():
+        if self.pi.connection:
             return self.pi.get_position(self.motor)
         else:
             return None
 
-    def get_connected(self):
-        return self.pi.get_connected()
+    def get_connection(self):
+        return self.pi.connection
 
     def get_moving(self):
-        if self.pi.get_connected():
+        if self.pi.connection:
             # Getting binary number to check the moving state of the motor.
             # [-6] is the position of the moving state bit.
             motor_state = self.pi.get_motor_state(self.motor)

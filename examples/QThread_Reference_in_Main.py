@@ -19,31 +19,13 @@ def function_get_position(self):
     return
 
 
-# class WorkerConnection(QObject):
-#     def __init__(self, self_window):
-#         super(WorkerConnection, self).__init__()
-#         self.led_connected = self_window.Led_Connected.setChecked
-#         self.get_connected = self_window.motors.get_connected
-#         self.text = self_window.Led_Connected.setText
-#         self.event = self_window.event_stop
-
-#     finished = pyqtSignal()
-
-#     def run(self):
-#         while not self.event.is_set():
-#             connection =self.get_connected()
-#             self.led_connected(connection)
-#             self.text(f"{connection}")
-#             time.sleep(0.2)
-#         return self.finished.emit()
-
-
 # class WorkerMoving(QObject):
 #     def __init__(self, self_window):
 #         super(WorkerMoving, self).__init__()
-#         self.led_moving = self_window.Led_Moving.setChecked
+#         self.led_moving = self_window.led_moving.setChecked
 #         self.get_moving = self_window.motors.get_moving
 #         self.event = self_window.event_stop
+#         self_window.button_stop.released.connect(self_window.motors.stop_motion)
 
 #     finished = pyqtSignal()
 
@@ -82,16 +64,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             args=(self,))
         self.thread_get_position.start()
 
-    # def display_connection(self):
-    #     self.thread_connection = QThread()
-    #     self.worker_connection = WorkerConnection(self)
-    #     self.worker_connection.moveToThread(self.thread_connection)
-    #     self.thread_connection.started.connect(self.worker_connection.run)
-    #     self.worker_connection.finished.connect(self.thread_connection.quit)
-    #     self.worker_connection.finished.connect(self.worker_connection.deleteLater)
-    #     self.thread_connection.finished.connect(self.thread_connection.deleteLater)
-    #     self.thread_connection.start()
-
     # def display_moving(self):
     #     self.thread_moving = QThread()
     #     self.worker_moving = WorkerMoving(self)
@@ -106,7 +78,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()
 window.show()
-# window.display_connection()
 # window.display_moving()
 app.exec()
 window.event_stop.set()  # Stopping the while loop in function_get_position()

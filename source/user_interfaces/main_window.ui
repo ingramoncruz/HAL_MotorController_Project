@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="buttonStop">
+   <widget class="QPushButton" name="button_stop">
     <property name="geometry">
      <rect>
       <x>35</x>
@@ -27,7 +27,7 @@
      <string>STOP</string>
     </property>
    </widget>
-   <widget class="QLabel" name="titleUI">
+   <widget class="QLabel" name="title_ui">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -47,10 +47,10 @@
      <string>MOTION CONTROLLER</string>
     </property>
    </widget>
-   <widget class="QLabel" name="titleMoving">
+   <widget class="QLabel" name="title_moving">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>220</x>
       <y>160</y>
       <width>64</width>
       <height>16</height>
@@ -66,7 +66,7 @@
      <string>Moving</string>
     </property>
    </widget>
-   <widget class="QLabel" name="titleController">
+   <widget class="QLabel" name="title_controller">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -85,7 +85,7 @@
      <string>Controller</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="selectController">
+   <widget class="QComboBox" name="select_controller">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -101,7 +101,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonDisconnect">
+   <widget class="QPushButton" name="button_disconnect">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -114,7 +114,7 @@
      <string>Disconnect</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonConnect">
+   <widget class="QPushButton" name="button_connect">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -127,7 +127,7 @@
      <string>Connect</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="inputDistance">
+   <widget class="QDoubleSpinBox" name="input_distance">
     <property name="geometry">
      <rect>
       <x>279</x>
@@ -137,7 +137,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="titleDistance">
+   <widget class="QLabel" name="title_distance">
     <property name="geometry">
      <rect>
       <x>279</x>
@@ -156,7 +156,7 @@
      <string>Distance</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonMoveAbsolute">
+   <widget class="QPushButton" name="button_move_absolute">
     <property name="geometry">
      <rect>
       <x>43</x>
@@ -169,7 +169,7 @@
      <string>Move Absolute</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="inputPosition">
+   <widget class="QDoubleSpinBox" name="input_position">
     <property name="geometry">
      <rect>
       <x>43</x>
@@ -179,7 +179,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="titlePosition">
+   <widget class="QLabel" name="title_position">
     <property name="geometry">
      <rect>
       <x>43</x>
@@ -198,7 +198,7 @@
      <string>Position</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="selectMotor">
+   <widget class="QComboBox" name="select_motor">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -214,7 +214,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="titleSelectMotor">
+   <widget class="QLabel" name="title_select_motor">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -233,23 +233,7 @@
      <string>Select Motor</string>
     </property>
    </widget>
-   <widget class="QLCDNumber" name="indicatorPosition">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>167</y>
-      <width>121</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-   </widget>
-   <widget class="QLabel" name="titleIndicatorPosition">
+   <widget class="QLabel" name="title_indicator_position">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -268,7 +252,7 @@
      <string>Position</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonMoveRelativePositive">
+   <widget class="QPushButton" name="button_move_relative_positive">
     <property name="geometry">
      <rect>
       <x>416</x>
@@ -281,7 +265,7 @@
      <string>Move Relative +</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonMoveRelativeNegative">
+   <widget class="QPushButton" name="button_move_relative_negative">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -294,7 +278,7 @@
      <string>Move Relative -</string>
     </property>
    </widget>
-   <widget class="QLabel" name="titleConnection">
+   <widget class="QLabel" name="title_connection">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -313,50 +297,22 @@
      <string>Connection</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="ledMoving">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>180</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton::indicator {
-width: 130px;
-height: 30px
-}
-
-QRadioButton::indicator::checked {
-background-color: #00ff00;
-}
-
-QRadioButton::indicator::unchecked {
-background-color: #486c58;
-}
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>420</x>
       <y>100</y>
-      <width>151</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QRadioButton" name="ledConnected">
+    <widget class="QRadioButton" name="led_connected">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>0</y>
        <width>131</width>
        <height>31</height>
@@ -383,6 +339,76 @@ background-color: #486c58;
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>180</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QRadioButton" name="led_moving">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QRadioButton::indicator {
+width: 130px;
+height: 30px
+}
+
+QRadioButton::indicator::checked {
+background-color: #00ff00;
+}
+
+QRadioButton::indicator::unchecked {
+background-color: #486c58;
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>170</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLCDNumber" name="indicator_position">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>121</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -390,7 +416,7 @@ background-color: #486c58;
      <x>0</x>
      <y>0</y>
      <width>593</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
