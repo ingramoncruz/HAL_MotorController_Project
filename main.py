@@ -1,8 +1,9 @@
 """ This is the main.py which starts all the modules to be controlled or used in the user
 interface provided and created in PyQt5.
 """
-from PyQt5.QtCore import QObject, QThread, pyqtSignal
-import sys
+
+import PyQt5
+#from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from threading import Thread, Event
 import time
 # Relative import for the modules to be used
